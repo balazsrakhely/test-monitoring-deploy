@@ -1,0 +1,21 @@
+mimir:
+  structuredConfig:
+    api:
+      enable_ingester_client: true
+    blocks_storage:
+      backend: filesystem
+      filesystem:
+        dir: /data/mimir
+    server:
+      http_listen_port: 8080
+    distributor:
+      remote_write:
+        enabled: true
+nginx:
+  enabled: false
+gateway:
+  enabled: true
+  enabledNonEnterprise: true
+  replicaCount: 1
+  ingress:
+    enabled: false

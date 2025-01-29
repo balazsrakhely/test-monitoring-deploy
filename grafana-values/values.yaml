@@ -1,0 +1,11 @@
+service:
+  type: NodePort
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Mimir
+        type: prometheus
+        url: http://mimir-gateway.default.svc.cluster.local/prometheus
+        access: proxy
+        isDefault: true
