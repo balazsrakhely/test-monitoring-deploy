@@ -1,11 +1,3 @@
-mimir:
-  structuredConfig:
-    blocks_storage:
-      backend: filesystem
-      filesystem:
-        dir: /storage-data/mimir
-    server:
-      http_listen_port: 8080
 nginx:
   enabled: false
 gateway:
