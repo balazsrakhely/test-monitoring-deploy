@@ -6,10 +6,6 @@ mimir:
         dir: /storage-data/mimir
     server:
       http_listen_port: 8080
-    ruler:
-      enabled: false
-    compactor:
-      enabled: false
 nginx:
   enabled: false
 gateway:
