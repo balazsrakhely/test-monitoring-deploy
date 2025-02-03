@@ -2,11 +2,8 @@
 envFrom:
   - secretRef: 
       name: opensearch-admin-secret
-config:
-  opensearch.yml: |
-    plugins:
-      security:
-        ssl:
-          http:
-            enabled: false
-            
+plugins:
+  security:
+    ssl:
+      http:
+        enabled: false
