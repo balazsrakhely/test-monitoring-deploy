@@ -1,1 +1,4 @@
 ---
+envFrom:
+  - secretRef: 
+      name: opensearch-admin-secret
