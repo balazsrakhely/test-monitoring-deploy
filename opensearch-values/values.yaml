@@ -9,4 +9,4 @@ envFrom:
       name: opensearch-admin-secret
 extraEnvs:
   - name: DISABLE_SECURITY_PLUGIN
-    value: true
+    value: "true"
