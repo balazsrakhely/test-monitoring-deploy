@@ -1,0 +1,12 @@
+---
+cluster:
+  dashboards:
+    enable: true
+    replicas: 1
+  nodePools:
+    - component: masters
+      replicas: 1
+      diskSize: "5Gi"
+      roles:
+        - "master"
+        - "data"

@@ -1,0 +1,32 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opensearch-operator
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  destination:
+    namespace: opensearch
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - chart: opensearch-operator
+      repoURL: https://opensearch-project.github.io/opensearch-k8s-operator/
+      targetRevision: 2.7.0
+      helm:
+        valueFiles:
+        - $values/opensearch-operator-values/values.yaml
+    - repoURL: https://github.com/balazsrakhely/test-monitoring-deploy.git
+      targetRevision: HEAD
+      path: opensearch-operator-values
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
