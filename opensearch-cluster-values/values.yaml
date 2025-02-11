@@ -1,5 +1,12 @@
 ---
 cluster:
   dashboards:
-    enable: true
-    replicas: 1
+    service:
+      type: NodePort
+  nodePools:
+    - component: masters
+      replicas: 3
+      diskSize: "30Gi"
+      roles:
+        - "cluster_manager"
+        - "data"
