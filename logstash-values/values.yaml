@@ -6,7 +6,7 @@ persistence:
 
 extraInitContainers:
   - name: install-opensearch-plugin
-    image: docker.elastic.co/logstash/logstash-oss
+    image: docker.elastic.co/logstash/logstash-oss:8.5.1
     command: ["/bin/sh", "-c"]
     args:
       - bin/logstash-plugin install logstash-output-opensearch;
