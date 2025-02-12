@@ -23,7 +23,7 @@ logstashPipeline:
       }
     }
     output {
-      elasticsearch {
+      opensearch {
         hosts => ["https://opensearch-cluster:9200"]
         user => '${OPENSEARCH_USERNAME}'
         cacert => '/usr/share/logstash/config/opensearch-cluster-admin-cert/ca.crt'
