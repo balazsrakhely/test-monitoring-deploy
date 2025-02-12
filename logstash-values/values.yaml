@@ -1,15 +1,15 @@
 ---
-image: "docker.elastic.co/logstash/logstash-oss"
+image: "docker.elastic.co/logstash/logstash"
 
 persistence:
   enabled: true
 
 extraInitContainers:
   - name: install-opensearch-plugin
-    image: docker.elastic.co/logstash/logstash-oss:8.5.1
+    image: docker.elastic.co/logstash/logstash:8.5.1
     command: ["/bin/sh", "-c"]
     args:
-      - bin/logstash-plugin install logstash-output-opensearch;
+      - bin/logstash-plugin install logstash-output-opensearch
     volumeMounts:
       - name: logstash-home
         mountPath: /usr/share/logstash
