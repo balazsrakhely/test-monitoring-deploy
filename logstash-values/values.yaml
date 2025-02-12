@@ -1,0 +1,59 @@
+---
+image: "docker.elastic.co/logstash/logstash-oss"
+
+persistence:
+  enabled: true
+
+logstashConfig:
+  logstash.yml: |
+    http.host: 0.0.0.0
+    xpack.monitoring.enabled: false
+
+extraEnvs:
+  - name: "OPENSEARCH_USERNAME"
+    valueFrom:
+      secretKeyRef:
+        name: opensearch-cluster-admin-password
+        key: username
+  - name: "OPENSEARCH_PASSWORD"
+    valueFrom:
+      secretKeyRef:
+        name: opensearch-cluster-admin-password
+        key: password
+
+logstashPipeline:
+  logstash.conf: |
+    input {
+      syslog {
+        port => 12345
+      }
+    }
+    output {
+      opensearch {
+        hosts => ["https://opensearch-cluster:9200"]
+        user => '${OPENSEARCH_USERNAME}'
+        cacert => '/usr/share/logstash/config/opensearch-cluster-admin-cert/ca.crt'
+        password => '${OPENSEARCH_PASSWORD}'
+        index => "logstash-%{+YYYY.MM.dd}"
+      }
+    }
+
+service:
+  annotations: {}
+  type: ClusterIP
+  loadBalancerIP: ""
+  ports:
+    - name: syslog
+      port: 12345
+      protocol: UDP
+      targetPort: 12345
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+
+
+secretMounts: 
+  - name: opensearch-cluster-admin-cert
+    secretName: opensearch-cluster-admin-cert
+    path: /usr/share/logstash/config/opensearch-cluster-admin-cert

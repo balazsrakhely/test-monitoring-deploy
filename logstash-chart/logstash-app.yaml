@@ -1,0 +1,30 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: logstash
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: logstash
+    server: https://kubernetes.default.svc
+  project: default
+  sources:
+    - chart: logstash
+      repoURL: https://helm.elastic.co
+      targetRevision: 8.5.1
+      helm:
+        valueFiles:
+        - $values/logstash-values/values.yaml
+    - repoURL: https://github.com/balazsrakhely/test-monitoring-deploy.git
+      targetRevision: HEAD
+      path: logstash-values
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
