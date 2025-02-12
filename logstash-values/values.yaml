@@ -9,7 +9,7 @@ extraInitContainers:
     image: docker.elastic.co/logstash/logstash:8.5.1
     command: ["/bin/sh", "-c"]
     args:
-      - ls -lR bin
+      - pwd; ls -lR
     volumeMounts:
       - name: logstash-home
         mountPath: /usr/share/logstash
