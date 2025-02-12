@@ -16,7 +16,9 @@ extraInitContainers:
 
 extraVolumes:
   - name: logstash-home
-    emptyDir: {}
+    hostPath:
+      path: /logstash/plugins
+      type: DirectoryOrCreate
 
 extraVolumeMounts:
   - name: logstash-home
