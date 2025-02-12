@@ -8,7 +8,7 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: logstash
+    namespace: opensearch
     server: https://kubernetes.default.svc
   project: default
   sources:
