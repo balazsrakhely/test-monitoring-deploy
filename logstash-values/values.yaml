@@ -9,7 +9,7 @@ extraInitContainers:
     image: docker.elastic.co/logstash/logstash:8.5.1
     command: ["/bin/sh", "-c"]
     args:
-      - bin/logstash-plugin install logstash-output-opensearch
+      - ls -lR bin
     volumeMounts:
       - name: logstash-home
         mountPath: /usr/share/logstash
