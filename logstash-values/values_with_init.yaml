@@ -1,5 +1,6 @@
 ---
-image: "docker.elastic.co/logstash/logstash"
+image: "docker.elastic.co/logstash/logstash-oss"
+imageTag: "8.5.1"
 
 persistence:
   enabled: true
@@ -9,16 +10,15 @@ extraInitContainers:
     image: docker.elastic.co/logstash/logstash:8.5.1
     command: ["/bin/sh", "-c"]
     args:
-      - bin/logstash-plugin install logstash-output-opensearch
+      - bin/logstash-plugin install logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch
     volumeMounts:
       - name: logstash-home
         mountPath: /usr/share/logstash
 
 extraVolumes:
-  - name: logstash-home
-    hostPath:
-      path: /logstash/plugins
-      type: DirectoryOrCreate
+  - name: logstash-plugin-storage
+    persistentVolumeClaim:
+      claimName: logstash-pvc
 
 extraVolumeMounts:
   - name: logstash-home
