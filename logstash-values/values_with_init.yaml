@@ -7,13 +7,13 @@ persistence:
 
 extraInitContainers:
   - name: install-opensearch-plugin
-    image: docker.elastic.co/logstash/logstash:8.5.1
+    image: docker.elastic.co/logstash/logstash-oss:8.5.1
     command: ["/bin/sh", "-c"]
     args:
-      - bin/logstash-plugin install logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch
+      - bin/logstash-plugin remove logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch; cp -r /usr/share/logstash/vendor/bundle /logstash-volume;
     volumeMounts:
       - name: logstash-plugin-storage
-        mountPath: /usr/share/logstash
+        mountPath: /logstash-volume
 
 extraVolumes:
   - name: logstash-plugin-storage
@@ -22,7 +22,7 @@ extraVolumes:
 
 extraVolumeMounts:
   - name: logstash-plugin-storage
-    mountPath: /usr/share/logstash
+    mountPath: /usr/share/logstash/vendor/bundle
 
 logstashConfig:
   logstash.yml: |

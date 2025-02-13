@@ -1,0 +1,26 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: logstash-plugin-installer
+  namespace: opensearch
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  template:
+    spec:
+      containers:
+        - name: install-opensearch-plugin
+          image: docker.elastic.co/logstash/logstash:8.5.1
+          command: ["/bin/sh", "-c"]
+          args:
+            - bin/logstash-plugin remove logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch; cp -r /usr/share/logstash/vendor/bundle /logstash-volume;
+          volumeMounts:
+            - mountPath: /logstash-volume
+              name: logstash-plugins-storage
+      restartPolicy: Never
+      volumes:
+        - name: logstash-plugins-storage
+          persistentVolumeClaim:
+            claimName: logstash-plugin-pvc
+            

@@ -4,25 +4,6 @@ image: "docker.elastic.co/logstash/logstash-oss"
 persistence:
   enabled: true
 
-extraInitContainers:
-  - name: install-opensearch-plugin
-    image: docker.elastic.co/logstash/logstash-oss:8.5.1
-    command: ["/bin/sh", "-c"]
-    args:
-      - bin/logstash-plugin remove logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch; cp -r /usr/share/logstash/vendor/bundle /logstash-volume;
-    volumeMounts:
-      - name: logstash-plugin-storage
-        mountPath: /logstash-volume
-
-extraVolumes:
-  - name: logstash-plugin-storage
-    persistentVolumeClaim:
-      claimName: logstash-plugin-pvc
-
-extraVolumeMounts:
-  - name: logstash-plugin-storage
-    mountPath: /usr/share/logstash/vendor/bundle
-
 logstashConfig:
   logstash.yml: |
     http.host: 0.0.0.0
