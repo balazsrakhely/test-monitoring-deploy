@@ -14,7 +14,7 @@ spec:
           image: docker.elastic.co/logstash/logstash:8.5.1
           command: ["/bin/sh", "-c"]
           args:
-            - bin/logstash-plugin remove logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch; cp -r /usr/share/logstash /logstash-volume;
+            - bin/logstash-plugin remove logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch; rsync -aHAXE /usr/share/logstash /logstash-volume;
           volumeMounts:
             - mountPath: /logstash-volume
               name: logstash-plugins-storage
