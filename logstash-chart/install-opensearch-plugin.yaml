@@ -17,6 +17,10 @@ spec:
             - |
               bin/logstash-plugin remove logstash-integration-aws; 
               bin/logstash-plugin install logstash-output-opensearch; 
+              ORIGINAL_UID=$(stat -c "%u" /usr/share/logstash);
+              ORIGINAL_GID=$(stat -c "%g" /usr/share/logstash);
+              chown -R ${ORIGINAL_UID}:${ORIGINAL_GID} /logstash-volume;
+              chmod -R u+rwX,g+rwX,o+rX /logstash-volume;
               cp -a --no-preserve=timestamps /usr/share/logstash/. /logstash-volume;
           volumeMounts:
             - mountPath: /logstash-volume
