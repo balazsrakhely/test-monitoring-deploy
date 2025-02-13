@@ -1,9 +1,28 @@
 ---
-image: "brakhely/logstash-with-opensearch"
-imageTag: "8.12.1"
+image: "docker.elastic.co/logstash/logstash"
 
 persistence:
   enabled: true
+
+extraInitContainers:
+  - name: install-opensearch-plugin
+    image: docker.elastic.co/logstash/logstash:8.5.1
+    command: ["/bin/sh", "-c"]
+    args:
+      - bin/logstash-plugin install logstash-output-opensearch
+    volumeMounts:
+      - name: logstash-home
+        mountPath: /usr/share/logstash
+
+extraVolumes:
+  - name: logstash-home
+    hostPath:
+      path: /logstash/plugins
+      type: DirectoryOrCreate
+
+extraVolumeMounts:
+  - name: logstash-home
+    mountPath: /usr/share/logstash
 
 logstashConfig:
   logstash.yml: |
