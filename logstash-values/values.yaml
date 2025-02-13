@@ -31,8 +31,11 @@ logstashPipeline:
       opensearch {
         hosts => ["https://opensearch-cluster:9200"]
         user => '${OPENSEARCH_USERNAME}'
-        cacert => '/usr/share/logstash/config/opensearch-cluster-admin-cert/ca.crt'
-        password => '${OPENSEARCH_PASSWORD}'
+        password => '${OPENSEARCH_PASSWORD}'        	
+        ssl_enabled => true
+        ssl_certificate_authorities => '/usr/share/logstash/config/opensearch-cluster-admin-cert/ca.crt'
+        ssl_certificate => "/usr/share/logstash/config/opensearch-cluster-admin-cert/tls.crt"
+        ssl_key => "/usr/share/logstash/config/opensearch-cluster-admin-cert/tls.key"
         index => "logstash-%{+YYYY.MM.dd}"
       }
     }
