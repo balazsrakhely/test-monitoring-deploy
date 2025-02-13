@@ -4,6 +4,15 @@ image: "docker.elastic.co/logstash/logstash-oss"
 persistence:
   enabled: true
 
+extraVolumes:
+  - name: logstash-plugin-storage
+    persistentVolumeClaim:
+      claimName: logstash-plugin-pvc
+
+extraVolumeMounts:
+  - name: logstash-plugin-storage
+    mountPath: /usr/share/logstash/vendor/bundle
+
 logstashConfig:
   logstash.yml: |
     http.host: 0.0.0.0
