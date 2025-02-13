@@ -11,7 +11,7 @@ extraVolumes:
 
 extraVolumeMounts:
   - name: logstash-plugin-storage
-    mountPath: /usr/share/logstash/vendor/bundle
+    mountPath: /usr/share/logstash
 
 logstashConfig:
   logstash.yml: |
