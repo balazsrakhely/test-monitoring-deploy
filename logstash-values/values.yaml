@@ -11,15 +11,16 @@ extraInitContainers:
     args:
       - bin/logstash-plugin remove logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch
     volumeMounts:
-      - name: plugins
+      - name: logstash-plugin-storage
         mountPath: /usr/share/logstash/vendor/bundle
 
 extraVolumes:
-  - name: plugins
-    emptyDir: {}
+  - name: logstash-plugin-storage
+    persistentVolumeClaim:
+      claimName: logstash-plugin-pvc
 
 extraVolumeMounts:
-  - name: plugins
+  - name: logstash-plugin-storage
     mountPath: /usr/share/logstash/vendor/bundle
 
 logstashConfig:

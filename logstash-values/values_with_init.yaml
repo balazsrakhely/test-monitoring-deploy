@@ -12,16 +12,16 @@ extraInitContainers:
     args:
       - bin/logstash-plugin install logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch
     volumeMounts:
-      - name: logstash-home
+      - name: logstash-plugin-storage
         mountPath: /usr/share/logstash
 
 extraVolumes:
   - name: logstash-plugin-storage
     persistentVolumeClaim:
-      claimName: logstash-pvc
+      claimName: logstash-plugin-pvc
 
 extraVolumeMounts:
-  - name: logstash-home
+  - name: logstash-plugin-storage
     mountPath: /usr/share/logstash
 
 logstashConfig:
