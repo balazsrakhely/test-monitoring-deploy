@@ -12,7 +12,7 @@ extraInitContainers:
       - bin/logstash-plugin remove logstash-integration-aws; bin/logstash-plugin install logstash-output-opensearch
     volumeMounts:
       - name: plugins
-        mountPath: /usr/share/logstash/plugins
+        mountPath: /usr/share/logstash/vendor/bundle
 
 extraVolumes:
   - name: plugins
@@ -20,7 +20,7 @@ extraVolumes:
 
 extraVolumeMounts:
   - name: plugins
-    mountPath: /usr/share/logstash/plugins
+    mountPath: /usr/share/logstash/vendor/bundle
 
 logstashConfig:
   logstash.yml: |
