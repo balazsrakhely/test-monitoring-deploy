@@ -8,18 +8,6 @@ logstashConfig:
   logstash.yml: |
     http.host: 0.0.0.0
 
-extraEnvs:
-  - name: "OPENSEARCH_USERNAME"
-    valueFrom:
-      secretKeyRef:
-        name: opensearch-cluster-admin-password
-        key: username
-  - name: "OPENSEARCH_PASSWORD"
-    valueFrom:
-      secretKeyRef:
-        name: opensearch-cluster-admin-password
-        key: password
-
 logstashPipeline:
   logstash.conf: |
     input {
@@ -29,13 +17,11 @@ logstashPipeline:
     }
     output {
       opensearch {
-        hosts => ["https://opensearch-cluster:9200"]
-        user => '${OPENSEARCH_USERNAME}'
-        password => '${OPENSEARCH_PASSWORD}'        	
+        hosts => ["https://opensearch-cluster:9200"]       	
         ssl => true
-        cacert => '/usr/share/logstash/config/opensearch-cluster-admin-cert/ca.crt'
-        tls_certificate => "/usr/share/logstash/config/opensearch-cluster-admin-cert/tls.crt"
-        tls_key => "/usr/share/logstash/config/opensearch-cluster-admin-cert/tls.key"
+        cacert => '/usr/share/logstash/config/opensearch-cluster-http-cert/ca.crt'
+        tls_certificate => "/usr/share/logstash/config/opensearch-cluster-http-cert/tls.crt"
+        tls_key => "/usr/share/logstash/config/opensearch-cluster-http-cert/tls.key"
         index => "logstash-%{+YYYY.MM.dd}"
       }
     }
@@ -56,6 +42,6 @@ service:
 
 
 secretMounts: 
-  - name: opensearch-cluster-admin-cert
-    secretName: opensearch-cluster-admin-cert
-    path: /usr/share/logstash/config/opensearch-cluster-admin-cert
+  - name: opensearch-cluster-http-cert
+    secretName: opensearch-cluster-http-cert
+    path: /usr/share/logstash/config/opensearch-cluster-http-cert
