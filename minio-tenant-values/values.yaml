@@ -1,14 +1,15 @@
 ---
 tenant:
-  name: myminio
+  name: minio
   configuration:
-    name: myminio-env-configuration
+    name: minio-env-configuration
   configSecret:
-    name: myminio-env-configuration
+    name: minio-env-configuration
     accessKey: minio
     secretKey: minio123
   pools:
-    - servers: 4
+    - name: pool-0
+      servers: 4
       volumesPerServer: 1
       size: 10Gi
   buckets:
