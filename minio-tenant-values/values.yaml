@@ -1,7 +1,15 @@
 ---
-pools:
-  - servers: 4
-    volumesPerServer: 1
-    size: 10Gi
-buckets:
-  - name: opensearch-bucket
+tenant:
+  name: minio
+  configuration:
+    name: minio-env-configuration
+  configSecret:
+    name: minio-env-configuration
+    accessKey: minio
+    secretKey: minio123
+  pools:
+    - servers: 4
+      volumesPerServer: 1
+      size: 10Gi
+  buckets:
+    - name: opensearch-bucket
