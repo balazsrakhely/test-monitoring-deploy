@@ -14,5 +14,3 @@ tenant:
       size: 10Gi
   buckets:
     - name: opensearch-bucket
-  certificate:
-    requestAutoCert: false
