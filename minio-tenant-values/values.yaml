@@ -1,10 +1,10 @@
 ---
 tenant:
-  name: minio
+  name: myminio
   configuration:
-    name: minio-env-configuration
+    name: myminio-env-configuration
   configSecret:
-    name: minio-env-configuration
+    name: myminio-env-configuration
     accessKey: minio
     secretKey: minio123
   pools:
