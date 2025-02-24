@@ -8,6 +8,9 @@ cluster:
       s3.client.default.protocol: https
   general:
     pluginsList: ["repository-s3"]
+    keystore:
+      - secret:
+          name: minio-tls
     snapshotRepositories:
       - name: minio-repo
         type: s3
