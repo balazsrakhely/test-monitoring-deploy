@@ -1,12 +1,26 @@
 ---
 cluster:
+  bootstrap:
+    additionalConfig:
+      s3.client.default.endpoint: https://minio.minio-tenant.svc.cluster.local:443
+      s3.client.default.access_key: minio
+      s3.client.default.secret_key: minio123
+      s3.client.default.protocol: https
+  general:
+    pluginsList: ["repository-s3"]
+    snapshotRepositories:
+      - name: minio-repo
+        type: s3
+        settings:
+          bucket: opensearch-bucket
+          base_path: snapshots
   dashboards:
     service:
       type: NodePort
   nodePools:
     - component: masters
       replicas: 3
-      diskSize: "30Gi"
+      diskSize: 30Gi
       roles:
-        - "cluster_manager"
-        - "data"
+        - cluster_manager
+        - data

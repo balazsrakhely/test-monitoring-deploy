@@ -1,17 +1,8 @@
 ---
-image: "docker.elastic.co/logstash/logstash-oss"
+image: "brakhely/logstash-with-opensearch"
 
 persistence:
-  enabled: true
-
-extraVolumes:
-  - name: logstash-plugin-storage
-    persistentVolumeClaim:
-      claimName: logstash-plugin-pvc
-
-extraVolumeMounts:
-  - name: logstash-plugin-storage
-    mountPath: /usr/share/logstash
+  enabled: false
 
 logstashConfig:
   logstash.yml: |
