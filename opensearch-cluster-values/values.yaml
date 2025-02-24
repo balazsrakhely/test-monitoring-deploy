@@ -3,8 +3,6 @@ cluster:
   bootstrap:
     additionalConfig: &additionalConfig
       s3.client.default.endpoint: http://minio.minio-tenant.svc.cluster.local:80
-      s3.client.default.access_key: minio
-      s3.client.default.secret_key: minio123
       s3.client.default.protocol: http
   general:
     pluginsList: ["repository-s3"]
