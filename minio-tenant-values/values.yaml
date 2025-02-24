@@ -12,3 +12,7 @@ tenant:
       servers: 4
       volumesPerServer: 1
       size: 10Gi
+  buckets:
+    - name: opensearch-bucket
+      policy: none
+      purge: false
