@@ -6,5 +6,3 @@ expose:
     enabled: false
 metrics:
   enabled: true
-  serviceMonitor:
-    enabled: true
