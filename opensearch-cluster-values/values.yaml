@@ -5,6 +5,7 @@ cluster:
     additionalConfig:
       s3.client.default.endpoint: https://minio.minio-tenant:443
       s3.client.default.protocol: https
+      plugins.security.ssl.http.clientauth_mode: 'OPTIONAL'
     keystore:
       - secret:
           name: s3-credentials
