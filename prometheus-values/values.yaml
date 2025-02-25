@@ -8,8 +8,23 @@ server:
   persistentVolume:
     enabled: false
 extraScrapeConfigs: |
-  - job_name: harbor
+  - job_name: harbor-exporter
     metrics_path: /metrics
     static_configs:
       - targets: 
         - harbor-exporter.harbor.svc.cluster.local:8001
+  - job_name: harbor-core
+    metrics_path: /metrics
+    static_configs:
+      - targets: 
+        - harbor-core.harbor.svc.cluster.local:8001
+  - job_name: harbor-registry
+    metrics_path: /metrics
+    static_configs:
+      - targets: 
+        - harbor-registry.harbor.svc.cluster.local:8001
+  - job_name: harbor-jobservice
+    metrics_path: /metrics
+    static_configs:
+      - targets: 
+        - harbor-jobservice.harbor.svc.cluster.local:8001
