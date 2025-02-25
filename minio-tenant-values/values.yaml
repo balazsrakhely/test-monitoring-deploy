@@ -15,5 +15,5 @@ tenant:
   buckets:
     - name: opensearch-bucket
   certificate:
-    requestAutoCert: false
+    requestAutoCert: true
     
