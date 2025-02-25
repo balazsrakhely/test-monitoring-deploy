@@ -1,5 +1,6 @@
 ---
 harborAdminPassword: Harbor12345
+externalURL: http://harbor
 expose:
   type: ClusterIP
   tls:
