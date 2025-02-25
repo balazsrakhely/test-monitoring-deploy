@@ -1,0 +1,10 @@
+---
+harborAdminPassword: "Harbor12345"
+expose:
+  type: ClusterIP
+  tls:
+    enabled: false
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true

@@ -1,7 +1,0 @@
----
-config:
-  opensearch.yml: |
-    plugins.security.disabled: true
-envFrom:
-  - secretRef: 
-      name: opensearch-admin-secret

@@ -2,25 +2,25 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: opensearch
+  name: harbor
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    namespace: monitoring
+    namespace: harbor
     server: https://kubernetes.default.svc
   project: default
   sources:
-    - chart: opensearch
-      repoURL: https://opensearch-project.github.io/helm-charts/
-      targetRevision: 2.30.1
+    - chart: harbor
+      repoURL: https://helm.goharbor.io
+      targetRevision: 1.16.2
       helm:
         valueFiles:
-        - $values/opensearch-values/values.yaml
+        - $values/harbor-values/values.yaml
     - repoURL: https://github.com/balazsrakhely/test-monitoring-deploy.git
       targetRevision: HEAD
-      path: opensearch-values
+      path: harbor-values
       ref: values
   syncPolicy:
     automated:
