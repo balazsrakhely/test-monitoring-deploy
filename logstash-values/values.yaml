@@ -20,8 +20,6 @@ logstashPipeline:
         hosts => ["https://opensearch-cluster:9200"]       	
         ssl => true
         cacert => '/usr/share/logstash/config/opensearch-cluster-admin-cert/ca.crt'
-        tls_certificate => "/usr/share/logstash/config/opensearch-cluster-admin-cert/tls.crt"
-        tls_key => "/usr/share/logstash/config/opensearch-cluster-admin-cert/tls.key"
         index => "logstash-%{+YYYY.MM.dd}"
       }
     }
