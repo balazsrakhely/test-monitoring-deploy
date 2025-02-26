@@ -1,76 +1,37 @@
 ---
-filebeatConfig:
-  filebeat.yml: |
-    filebeat.inputs:
-    - type: container
-      paths:
-        - /var/log/containers/*.log
-      processors:
-      - add_kubernetes_metadata:
-          host: ${NODE_NAME}
-          matchers:
-          - logs_path:
-              logs_path: "/var/log/containers/"
+daemonset:
+  enabled: true
+  filebeatConfig:
+    filebeat.yml: |
+      filebeat.inputs:
+      - type: container
+        paths:
+          - /var/log/containers/*.log
+        processors:
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
 
-    output.logstash:
-      hosts: ["logstash-logstash:5044"]
+      output.logstash:
+        hosts: ["logstash-logstash:5044"]
 
-extraEnvs: []
+  extraEnvs: []
 
-extraVolumeMounts: []
+  extraVolumeMounts: []
 
-extraVolumes: []
+  extraVolumes: []
 
-hostPathRoot: /var/lib
-hostNetworking: false
-image: "docker.elastic.co/beats/filebeat"
-imageTag: "7.5.1"
-imagePullPolicy: "IfNotPresent"
-imagePullSecrets: []
+  secretMounts: []
 
-livenessProbe:
-  failureThreshold: 3
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "1000m"
+      memory: "200Mi"
 
-readinessProbe:
-  failureThreshold: 3
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
-
-managedServiceAccount: true
-
-labels: {}
-
-podAnnotations: {}
-podSecurityContext:
-  runAsUser: 0
-  privileged: false
-
-resources:
-  requests:
-    cpu: "100m"
-    memory: "100Mi"
-  limits:
-    cpu: "1000m"
-    memory: "200Mi"
-
-serviceAccount: ""
-
-secretMounts: []
-terminationGracePeriod: 30
-
-tolerations: []
-
-nodeSelector: {}
-
-affinity: {}
-
-priorityClassName: ""
-
-updateStrategy: RollingUpdate
-
-nameOverride: ""
-fullnameOverride: ""
+deployment:
+  enabled: false
