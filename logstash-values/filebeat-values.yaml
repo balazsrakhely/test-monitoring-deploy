@@ -14,3 +14,63 @@ filebeatConfig:
 
     output.logstash:
       hosts: ["logstash-logstash:5044"]
+
+extraEnvs: []
+
+extraVolumeMounts: []
+
+extraVolumes: []
+
+hostPathRoot: /var/lib
+hostNetworking: false
+image: "docker.elastic.co/beats/filebeat"
+imageTag: "7.5.1"
+imagePullPolicy: "IfNotPresent"
+imagePullSecrets: []
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+
+managedServiceAccount: true
+
+labels: {}
+
+podAnnotations: {}
+podSecurityContext:
+  runAsUser: 0
+  privileged: false
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "100Mi"
+  limits:
+    cpu: "1000m"
+    memory: "200Mi"
+
+serviceAccount: ""
+
+secretMounts: []
+terminationGracePeriod: 30
+
+tolerations: []
+
+nodeSelector: {}
+
+affinity: {}
+
+priorityClassName: ""
+
+updateStrategy: RollingUpdate
+
+nameOverride: ""
+fullnameOverride: ""
