@@ -8,6 +8,18 @@ logstashConfig:
   logstash.yml: |
     http.host: 0.0.0.0
 
+extraEnvs:
+  - name: "OPENSEARCH_USERNAME"
+    valueFrom:
+      secretKeyRef:
+        name: opensearch-cluster-admin-password
+        key: username
+  - name: "OPENSEARCH_PASSWORD"
+    valueFrom:
+      secretKeyRef:
+        name: opensearch-cluster-admin-password
+        key: password
+
 logstashPipeline:
   logstash.conf: |
     input {
@@ -17,7 +29,9 @@ logstashPipeline:
     }
     output {
       opensearch {
-        hosts => ["https://opensearch-cluster:9200"]       	
+        hosts => ["https://opensearch-cluster:9200"]
+        user => '${OPENSEARCH_USERNAME}'
+        password => '${OPENSEARCH_PASSWORD}'
         ssl => true
         cacert => '/usr/share/logstash/config/opensearch-cluster-admin-cert/ca.crt'
         index => "logstash-%{+YYYY.MM.dd}"
