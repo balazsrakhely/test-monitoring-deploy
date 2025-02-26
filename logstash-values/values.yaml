@@ -26,6 +26,9 @@ logstashPipeline:
       syslog {
         port => 12345
       }
+      beats {
+        port => 5044
+      }
     }
     output {
       opensearch {
@@ -47,6 +50,10 @@ service:
       port: 12345
       protocol: UDP
       targetPort: 12345
+    - name: beats
+      port: 5044
+      protocol: TCP
+      targetPort: 5044
     - name: http
       port: 8080
       protocol: TCP
