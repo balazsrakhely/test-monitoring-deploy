@@ -17,7 +17,13 @@ spec:
       targetRevision: 8.5.1
       helm:
         valueFiles:
-        - $values/logstash-values/values.yaml
+        - $values/logstash-values/logstash-values.yaml
+    - chart: filebeat
+      repoURL: https://helm.elastic.co
+      targetRevision: 8.5.1
+      helm:
+        valueFiles:
+        - $values/logstash-values/filebeat-values.yaml
     - repoURL: https://github.com/balazsrakhely/test-monitoring-deploy.git
       targetRevision: HEAD
       path: logstash-values
